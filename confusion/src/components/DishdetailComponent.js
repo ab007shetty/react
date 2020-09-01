@@ -1,8 +1,9 @@
-import React from 'react';
+import React, {Component} from 'react';
 import {Card, CardBody, CardImg,  CardTitle, CardText} from 'reactstrap';
 
+class DishDetail extends Component {
 
-   function RenderDish({dish}){
+    renderDish(dish){
         if(dish!=null){
             return(
                 <div className="col-12 col-md-5 m-1">
@@ -23,56 +24,57 @@ import {Card, CardBody, CardImg,  CardTitle, CardText} from 'reactstrap';
         }
     }
 
-
-    function RenderComments({comments}) {
-        if(comments!=null){
+    renderComments(dish){
+        if(dish!=null){
             return(
-                <div className="col-12 col-md-5 m-1">
-                            <h4>Comments</h4>
-                            <ul className="list-unstyled">
-                            {comments.map((comments) =>{
-                                return(
-                                <li key={comments.id}>
-                                {comments.comment}
-                                <p>
-                                    -- {comments.author}, {new Intl.DateTimeFormat('en-US',{year: 'numeric', month: 'short', day: '2-digit'})
-                                    .format(new Date(Date.parse(comments.date)))}
-                                </p>
-                            </li>
-                            );
-                        })};
-                            </ul>
-                           
+                dish.comments.map((comments) =>{
+                    return(
+                        <div class="container">
+                                     <li key={comments.id}>
+                            {comments.comment}
+                            <p>
+                                -- {comments.author}, {new Intl.DateTimeFormat('en-US',{year: 'numeric', month: 'short', day: '2-digit'})
+                                .format(new Date(Date.parse(comments.date)))}
+                            </p>
+                        </li>
                         </div>
+                   
+                    );
+                })
             );
-                        }
-                        else{
-                            return(
-                                <div></div>
-                            );
-                        }}
+        }
+        else{
+            return(
+                <div></div>
+            );
+        }
+    }
 
-
-    const DishDetail = (props) => { 
-        if(props.dish!=null){
+    render (){
+        if(this.props.dish!=null){
             return(
                 <div className="container">
                     <div className="row">
-                     <RenderDish dish={props.dish}/> 
-                     <RenderComments comments = {props.comments}/>
-                      
+                        {this.renderDish(this.props.dish)}
+                        <div className="col-12 col-md-5 m-1">
+                            <h4>Comments</h4>
+                            <ul className="list-unstyled">
+                                {this.renderComments(this.props.dish)}
+                            </ul>
+                        </div>
                     </div>
                 </div>
             );
         }
         else{
             return(
-                <div> </div>
-                             
+                <div>
+                    
+                </div>
             );
         }
     }
-
+}
 
 
 
