@@ -1,12 +1,7 @@
 import React, {Component} from 'react';
-import {Card, CardBody, CardImg, CardImgOverlay, CardTitle, CardText} from 'reactstrap';
+import {Card, CardBody, CardImg,  CardTitle, CardText} from 'reactstrap';
 
-class Dishdetail extends Component {
-
-    constructor(props){
-        super(props);
-
-    }
+class DishDetail extends Component {
 
     renderDish(dish){
         if(dish!=null){
@@ -34,12 +29,16 @@ class Dishdetail extends Component {
             return(
                 dish.comments.map((comments) =>{
                     return(
-                        <li key={comments.date}>
+                        <div class="container">
+                                     <li key={comments.id}>
                             {comments.comment}
                             <p>
-                                --{comments.author}, {new Intl.DateTimeFormat('en-US',{year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comments.date)))}
+                                -- {comments.author}, {new Intl.DateTimeFormat('en-US',{year: 'numeric', month: 'short', day: '2-digit'})
+                                .format(new Date(Date.parse(comments.date)))}
                             </p>
                         </li>
+                        </div>
+                   
                     );
                 })
             );
@@ -87,4 +86,4 @@ class Dishdetail extends Component {
 
 
 
-export default Dishdetail;
+export default DishDetail;
